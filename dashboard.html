@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | TeleMetrix Analytics</title>
+
+    <script>
+        // --- AUTHENTICATION CHECK ---
+        // This script runs first to protect the page.
+        (function () {
+            const userId = localStorage.getItem('userId');
+            if (!userId) {
+                console.log('No user ID found, redirecting to login.');
+                // Use .replace() so the user can't click "Back"
+                window.location.replace('index.html');
+            }
+        })();
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Oswald:wght@500&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+    <header class="taskbar">
+        <div class="logo">TeleMetrix Dashboard</div>
+        <div class="user-info">
+            <span id="userName">Welcome, Rider</span>
+            <button id="logoutBtn" class="primary-btn logout-btn">Logout</button>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+
+        <aside class="sidebar">
+            <div style="text-align: center; margin-bottom: 25px;">
+                <p id="vehicleNameDisplay" style="color: #FF4500; font-size: 0.9em; font-weight: 600;">Active Vehicle: Kawasaki H2R</p>
+            </div>
+
+            <div class="sidebar-menu">
+                <a id="linkDashboard" class="sidebar-link active">📊 Dashboard (Live)</a>
+                <a id="linkHistory" class="sidebar-link">📜 Driver History</a>
+                <a id="linkContacts" class="sidebar-link">📞 Emergency Contacts</a>
+                <a id="linkSettings" class="sidebar-link">⚙️ Settings</a>
+                <a href="#" class="sidebar-link">✍️ Driver Reports (Not Implemented)</a>
+            </div>
+
+            <div class="grid-card history-sidebar">
+                <h4>📜 Last Drives</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date & Time</th>
+                            <th>Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historicDataBody">
+                        <tr class="placeholder-row">
+                            <td>2025-09-01 12:00 PM</td>
+                            <td>A+</td>
+                        </tr>
+                        <tr class="placeholder-row">
+                            <td>2025-08-28 08:30 AM</td>
+                            <td>B</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 15px; font-size: 0.8em;">
+                    <a href="#" style="color: #FF4500; font-weight: 600;">View Full Archive →</a>
+                </p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+
+            <div id="dashboardView" class="view-section active">
+                <section id="espConnectBanner" class="esp-connect-banner">
+                    <span class="esp-icon">⚠️</span>
+                    <div class="esp-text">
+                        <strong>ESP32 Not Connected</strong>
+                        <p>Enter your ESP32's IP address to connect</p>
+                    </div>
+                    <button id="connectEspBtn" class="primary-btn esp-connect-btn">Connect ESP32</button>
+                </section>
+
+                <section class="control-panel">
+                    <button id="systemToggle" class="activate-btn">ACTIVATE MONITORING</button>
+                    <div class="status-indicator">System Status: <span id="realTimeStatus"
+                            class="status-offline">🔴 OFFLINE</span></div>
+                </section>
+
+                <section id="liveSensorSection">
+                    <div class="data-card-grid">
+                        <div class="data-card">
+                            <div class="card-title">Speed <span class="card-icon">⚡</span></div>
+                            <div class="card-value" id="dataSpeed">0</div>
+                            <div class="card-unit">km/h</div>
+                        </div>
+                        <div class="data-card">
+                            <div class="card-title">Acceleration <span class="card-icon">⚡</span></div>
+                            <div class="card-value" id="dataAccel">0.00</div>
+                            <div class="card-unit">m/s²</div>
+                        </div>
+                        <div class="data-card">
+                            <div class="card-title">Angular Velocity <span class="card-icon">🌀</span></div>
+                            <div class="card-value" id="dataAngVel">0.000</div>
+                            <div class="card-unit">rad/s</div>
+                        </div>
+                    </div>
+
+                    <div class="mpu-section">
+                        <h3 class="mpu-section-title">MPU6050 Sensor Readings</h3>
+                        <div class="mpu-grid">
+                            <div class="mpu-card">
+                                <div class="mpu-title">Accel X</div>
+                                <div class="mpu-value" id="dataAccelX">0.000</div>
+                            </div>
+                            <div class="mpu-card">
+                                <div class="mpu-title">Accel Y</div>
+                                <div class="mpu-value" id="dataAccelY">0.000</div>
+                            </div>
+                            <div class="mpu-card">
+                                <div class="mpu-title">Accel Z</div>
+                                <div class="mpu-value" id="dataAccelZ">0.000</div>
+                            </div>
+                            <div class="mpu-card">
+                                <div class="mpu-title">Gyro X</div>
+                                <div class="mpu-value" id="dataGyroX">0.000</div>
+                            </div>
+                            <div class="mpu-card">
+                                <div class="mpu-title">Gyro Y</div>
+                                <div class="mpu-value" id="dataGyroY">0.000</div>
+                            </div>
+                            <div class="mpu-card">
+                                <div class="mpu-title">Gyro Z</div>
+                                <div class="mpu-value" id="dataGyroZ">0.000</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+                <section class="analytics-grid">
+
+                    <div class="grid-card map-card">
+                        <h3>Vehicle Location (Real-Time GPS)</h3>
+                        <div id="map"></div>
+                    </div>
+
+                    <div class="risk-score-column">
+                        <div class="grid-card">
+                            <h3>Accident Risk Assessment</h3>
+                            <div class="risk-grade" id="riskGrade">
+                                <span class="grade" style="color:#B0B0B0;">N/A</span>
+                                <span class="emoji">😴</span>
+                                <p style="color: #B0B0B0;">Activate system to begin analysis.</p>
+                            </div>
+                            <div class="suggestion-box">
+                                <h4 style="margin: 0 0 5px 0; color: #FF4500; font-size: 1em;">Data Source</h4>
+                                <p style="font-size: 0.8em; margin: 0; color: #B0B0B0;" id="dataSourceText">
+                                    System is offline. Connect to ESP32 to begin.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="grid-card">
+                            <h3>Driver Behavior Scorecard</h3>
+                            <div class="score-container" style="display: flex; justify-content: space-around;">
+                                <div class="score-gauge" style="text-align: center;">
+                                    <span class="score-value" id="smoothnessScore">N/A</span>
+                                    <p style="color: #B0B0B0;">Smoothness (%)</p>
+                                </div>
+                                <div class="score-gauge" style="text-align: center;">
+                                    <span class="score-value" id="corneringScore">N/A</span>
+                                    <p style="color: #B0B0B0;">Cornering (%)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid-card event-log-card">
+                        <h3>Real-Time Event Log</h3>
+                        <div style="display: flex; justify-content: space-around; text-align: center; margin-bottom: 15px;">
+                            <div style="flex: 1;">
+                                <span style="font-size: 2.5em; font-weight: 800; color: #DC3545;" id="highSpeedCount">0</span>
+                                <p style="color: #B0B0B0; margin-top: 5px;">🚨 High Speed Alerts</p>
+                            </div>
+                            <div style="flex: 1;">
+                                <span style="font-size: 2.5em; font-weight: 800; color: #FFC107;" id="sharpTurnCount">0</span>
+                                <p style="color: #B0B0B0; margin-top: 5px;">⚠️ Sharp Turns</p>
+                            </div>
+                        </div>
+                        <div class="suggestion-box" id="realTimeAlert" style="display:none;">
+                            <p style="margin: 0; font-weight: 600;">System Alert: <span id="alertMessage"></span></p>
+                        </div>
+                    </div>
+                    <section id="espChartsSection">
+                        <div class="esp-chart-card">
+                            <h3>Speed vs. Time</h3>
+                            <div class="chart-container">
+                                <canvas id="speedChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="esp-chart-card">
+                            <h3>Acceleration vs. Time</h3>
+                            <div class="chart-container">
+                                <canvas id="accelChart"></canvas>
+                            </div>
+                        </div>
+                    </section>
+
+                </section>
+            </div>
+
+            <div id="historyView" class="view-section">
+                <div class="grid-card">
+                    <h3>Driver History</h3>
+                    <p>Upload a saved session JSON file to review your drive summary.</p>
+                    
+                    <input type="file" id="jsonUpload" accept="application/json">
+                    <label for="jsonUpload" id="jsonUploadLabel">Select Session File</label>
+                    
+                    <div id="historySummary" style="display: none;">
+                        <h4 id="historyFileName"></h4>
+                        <p><strong>Start Time:</strong> <span id="historyStartTime"></span></p>
+                        <p><strong>End Time:</strong> <span id="historyEndTime"></span></p>
+                        <p><strong>Duration:</strong> <span id="historyDuration"></span></p>
+                        <p><strong>Max Speed:</strong> <span id="historyMaxSpeed"></span></p>
+                        <p><strong>Max Acceleration:</strong> <span id="historyMaxAccel"></span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="contactsView" class="view-section">
+                <div class="grid-card">
+                    <h3>Emergency Contacts</h3>
+                    <p>Add contacts to be notified in an emergency. This data is saved to your local browser.</p>
+                    
+                    <form id="contactsForm">
+                        <div class="form-group">
+                            <label for="contactName">Contact Name</label>
+                            <input type="text" id="contactName" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactPhone">Phone Number</label>
+                            <input type="tel" id="contactPhone" class="form-input" required>
+                        </div>
+                        <button type="submit" class="form-submit-btn">Add Contact</button>
+                    </form>
+                    
+                    <h3 style="margin-top: 30px; border-top: 1px solid #333; padding-top: 20px;">Saved Contacts</h3>
+                    <ul id="contactsList">
+                        </ul>
+                </div>
+            </div>
+
+            <div id="settingsView" class="view-section">
+                <div class="grid-card">
+                    <h3>Profile Settings</h3>
+                    <p>Edit your profile details. This data is saved to your local browser.</p>
+                    
+                    <form id="profileForm">
+                        <div class="form-group">
+                            <label for="profileName">Rider Name</label>
+                            <input type="text" id="profileName" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="profileVehicle">Active Vehicle</label>
+                            <input type="text" id="profileVehicle" class="form-input">
+                        </div>
+                        <button type="submit" class="form-submit-btn">Save Profile</button>
+                        <span id="formStatus"></span>
+                    </form>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+
+</html>

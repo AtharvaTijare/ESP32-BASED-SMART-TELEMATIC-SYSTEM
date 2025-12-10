@@ -1,0 +1,555 @@
+/* GLOBAL STYLES (Black & Orange Theme) */
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    color: #E0E0E0;
+}
+
+.taskbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 4%;
+    background-color: #212121;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    height: 56px;
+}
+
+.logo {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.8em;
+    color: #FF4500;
+    font-weight: 800;
+}
+
+.primary-btn {
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.primary-btn.logout-btn {
+    background-color: #DC3545;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+}
+
+.primary-btn.logout-btn:hover {
+    background-color: #b02a37;
+}
+
+/* LAYOUT & SIDEBAR */
+.dashboard-container {
+    display: flex;
+}
+
+.sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    background-color: #212121;
+    height: calc(100vh - 56px);
+    padding-top: 30px;
+    position: sticky;
+    top: 56px;
+    overflow-y: auto;
+}
+
+.sidebar-menu {
+    margin-bottom: 30px;
+}
+
+.sidebar-link {
+    padding: 15px 25px;
+    text-decoration: none;
+    color: #B0B0B0;
+    font-weight: 600;
+    display: block;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+    border-left: 5px solid transparent;
+}
+
+.sidebar-link:hover {
+    background-color: #333;
+    color: #FF4500;
+}
+
+.sidebar-link.active {
+    background-color: #333;
+    color: #FF4500;
+    border-left: 5px solid #FF4500;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 25px 4%;
+    overflow-y: auto;
+    /* Allow scrolling within main content */
+    height: calc(100vh - 56px);
+}
+
+/* --- View Sections (for tabbed navigation) --- */
+.view-section {
+    display: none;
+    /* Hidden by default */
+}
+
+.view-section.active {
+    display: block;
+    /* Shown when active */
+}
+
+
+/* ESP32 CONNECT BANNER STYLES */
+.esp-connect-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #FEF7DB;
+    color: #333;
+    padding: 15px 25px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    border: 1px solid #FEEB9A;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.esp-connect-banner .esp-icon {
+    font-size: 1.8em;
+    margin-right: 15px;
+}
+
+.esp-connect-banner .esp-text {
+    flex-grow: 1;
+}
+
+.esp-connect-banner .esp-text strong {
+    display: block;
+    font-size: 1.1em;
+    color: #212121;
+    font-weight: 800;
+}
+
+.esp-connect-banner .esp-text p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #555;
+}
+
+.primary-btn.esp-connect-btn {
+    background-color: #F9A825;
+    color: #212121;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.primary-btn.esp-connect-btn:hover {
+    background-color: #E69500;
+}
+
+/* --- LIVE SENSOR DATA CARDS --- */
+#liveSensorSection {
+    display: block;
+    margin-bottom: 25px;
+}
+
+.data-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.data-card {
+    background-color: #FFFFFF;
+    color: #212121;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #E0E0E0;
+}
+
+.data-card .card-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #0D47A1;
+}
+
+.data-card .card-icon {
+    font-size: 1.2em;
+    color: #FF4500;
+}
+
+.data-card .card-value {
+    font-size: 3.5em;
+    font-weight: 800;
+    color: #121212;
+    margin: 10px 0 5px 0;
+}
+
+.data-card .card-unit {
+    font-size: 1em;
+    font-weight: 600;
+    color: #555;
+}
+
+.mpu-section-title {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #E0E0E0;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #444;
+}
+
+.mpu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+}
+
+.mpu-card {
+    background-color: #F4F6F8;
+    color: #212121;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #D1D9E0;
+}
+
+.mpu-card .mpu-title {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: #0D47A1;
+    margin-bottom: 8px;
+}
+
+.mpu-card .mpu-value {
+    font-size: 1.8em;
+    font-weight: 800;
+    color: #121212;
+}
+
+/* --- CONTROL PANEL --- */
+.control-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding: 20px;
+    background-color: #212121;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    border-left: 6px solid #FF4500;
+}
+
+.activate-btn {
+    padding: 12px 30px;
+    font-size: 1.1em;
+    background-color: #28A745;
+    color: white;
+    border-radius: 25px;
+    font-weight: 600;
+}
+
+.activate-btn.active-status {
+    background-color: #FF4500;
+}
+
+.activate-btn:hover {
+    transform: translateY(-2px);
+}
+
+.status-active {
+    color: #28A745;
+}
+
+.status-offline {
+    color: #DC3545;
+}
+
+/* --- ANALYTICS GRID --- */
+.analytics-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 25px;
+}
+
+.grid-card {
+    background-color: #212121;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    border: 1px solid #333;
+}
+
+/* New Event Log Card Style */
+.event-log-card {
+    grid-column: 1 / -1;
+}
+
+.grid-card h3 {
+    color: #FF4500;
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #FF4500;
+    font-weight: 800;
+}
+
+#map {
+    height: 350px;
+    border-radius: 8px;
+    filter: grayscale(0.5) invert(0.1);
+}
+
+.chart-container {
+    position: relative;
+    height: 250px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+/* --- ESP32 CHART SECTION --- */
+#espChartsSection {
+    display: none;
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.esp-chart-card {
+    background-color: #212121;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    border: 1px solid #333;
+}
+
+.esp-chart-card h3 {
+    color: #FF4500;
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #FF4500;
+    font-weight: 800;
+}
+
+.score-value {
+    color: #FF4500;
+}
+
+.risk-grade .grade {
+    font-size: 5em;
+}
+
+.suggestion-box {
+    background-color: #333 !important;
+    border: 1px solid #FF4500;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+/* Alert box style for High Speed/Sharp Turn */
+.suggestion-box#realTimeAlert {
+    background-color: #49000A;
+    /* Dark red background for critical alert */
+    border-color: #DC3545;
+    color: white;
+    display: none;
+    /* Controlled by JS */
+    margin-top: 15px;
+}
+
+
+/* --- SIDEBAR HISTORY --- */
+.history-sidebar {
+    padding: 15px 25px;
+    margin-top: 20px;
+    border-top: 1px solid #444;
+}
+
+.history-sidebar h4 {
+    color: #FF4500;
+}
+
+.history-sidebar table {
+    color: #B0B0B0;
+    width: 100%;
+}
+
+.history-sidebar th {
+    text-align: left;
+}
+
+.history-sidebar a {
+    color: #FF4500;
+}
+
+/* --- NEW SECTION STYLES (History, Contacts, Settings) --- */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    color: #B0B0B0;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 5px;
+    color: #E0E0E0;
+    font-size: 1em;
+}
+
+.form-submit-btn {
+    background-color: #FF4500;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 20px;
+    font-size: 1em;
+}
+
+.form-submit-btn:hover {
+    background-color: #E64100;
+    transform: translateY(-2px);
+}
+
+#formStatus {
+    color: #28A745;
+    margin-left: 15px;
+    font-weight: 600;
+}
+
+/* Contacts List */
+#contactsList {
+    list-style: none;
+    padding: 0;
+}
+
+#contactsList li {
+    background-color: #212121;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#contactsList .contact-name {
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+#contactsList .contact-phone {
+    color: #FF4500;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.2em;
+}
+
+/* History Uploader */
+#jsonUploadLabel {
+    background-color: #FF4500;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 20px;
+    font-size: 1em;
+    cursor: pointer;
+    display: inline-block;
+}
+
+#jsonUploadLabel:hover {
+    background-color: #E64100;
+}
+
+#jsonUpload {
+    display: none;
+}
+
+#historySummary {
+    margin-top: 25px;
+    background-color: #212121;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid #333;
+}
+
+#historySummary h4 {
+    color: #FF4500;
+    margin-top: 0;
+}
+
+#historySummary p {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+#historySummary strong {
+    color: #B0B0B0;
+    min-width: 150px;
+    display: inline-block;
+}
+
+#historySummary span {
+    color: #E0E0E0;
+    font-weight: 600;
+}
+
+
+/* --- RESPONSIVE --- */
+@media (max-width: 992px) {
+    .analytics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .risk-score-column {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .esp-connect-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .esp-connect-banner .primary-btn {
+        width: 100%;
+    }
+
+    .data-card-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .mpu-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    #espChartsSection {
+        grid-template-columns: 1fr;
+    }
+}

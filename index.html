@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeleMetrix | Intelligent Vehicle Monitoring</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Oswald:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+    <header class="taskbar">
+        <div class="logo">TeleMetrix</div>
+        <nav class="nav-links">
+            <a href="#" class="active">Home</a>
+            <a href="#features">Features</a>
+            <a href="#tech">Tech Specs</a>
+            <a href="#ai">AI Roadmap</a>
+            <a href="#performance">Performance</a>
+            <a href="#security">Security</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <button id="loginBtn" class="primary-btn">System Login</button>
+    </header>
+
+    <main class="intro-page">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>**Kawasaki H2R Telemetry:** Real-Time Safety & Performance.</h1>
+                <p>A high-performance IoT platform for driver scoring, predictive diagnostics, and optimal vehicle security. Inspired by professional government data presentation.</p>
+                <button class="primary-btn" id="exploreBtn">Access Live Telemetry (H2R)</button>
+            </div>
+            <div class="bike-animation-container">
+                <div class="bike-graphic">
+                    <div class="chassis">
+                        <div class="seat"></div>
+                        <div class="connect"></div>
+                    </div>
+                    <div class="wheel front-wheel"></div>
+                    <div class="wheel back-wheel"></div>
+                </div>
+                <div class="road"></div>
+            </div>
+        </section>
+
+        <section id="features" style="padding: 50px 5%; background-color: #212121; color: white;">
+            <h2 style="color: #FF4500;">Page 2: Core Features</h2>
+            <p>Real-time data stream, predictive risk, historical analytics.</p>
+        </section>
+        <section id="tech" style="padding: 50px 5%; background-color: #121212; color: white;">
+            <h2 style="color: #FF4500;">Page 3: Tech Specs (ESP32 & MPU6050)</h2>
+            <p>Integration details for high-frequency sensor collection.</p>
+        </section>
+        <section id="ai" style="padding: 50px 5%; background-color: #212121; color: white;">
+            <h2 style="color: #FF4500;">Page 4: AI Roadmap</h2>
+            <p>Future integration of Random Forest for accident severity prediction.</p>
+        </section>
+        <section id="performance" style="padding: 50px 5%; background-color: #121212; color: white;">
+            <h2 style="color: #FF4500;">Page 5: Performance Metrics (100% Goal)</h2>
+            <p>Optimized CSS and JavaScript for lightning-fast load times.</p>
+        </section>
+        <section id="security" style="padding: 50px 5%; background-color: #212121; color: white;">
+            <h2 style="color: #FF4500;">Page 6: Data Security</h2>
+            <p>Cloud-based storage simulation with access control policies.</p>
+        </section>
+        <section id="contact" style="padding: 50px 5%; background-color: #121212; color: white;">
+            <h2 style="color: #FF4500;">Page 7: Contact & Support</h2>
+            <p>Project documentation and support channels.</p>
+        </section>
+    </main>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div style="text-align: center;">
+                <div class="tab-container">
+                    <button id="loginTabBtn" class="tab-btn active">LOGIN</button>
+                    <button id="registerTabBtn" class="tab-btn">REGISTER</button>
+                </div>
+
+                <div id="formMessage"></div>
+
+                <form id="loginForm">
+                    <h2 style="color: #FF4500;">Secure Access</h2>
+                    <input type="email" placeholder="Email (Rider ID)" required class="form-input">
+                    <input type="password" placeholder="Password" required class="form-input">
+                    <button type="submit" class="primary-btn" style="width: 100%;">Login & Access H2R Telemetry</button>
+                </form>
+
+                <form id="registerForm" style="display: none;">
+                    <h2 style="color: #FF4500;">Create Account</h2>
+                    <input type="email" placeholder="Email (Rider ID)" required class="form-input">
+                    <input type="password" placeholder="Password" required class="form-input" id="regPassword">
+                    <input type="password" placeholder="Confirm Password" required class="form-input"
+                        id="regConfirmPassword">
+                    <button type="submit" class="primary-btn" style="width: 100%;">Register</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="transitionOverlay" class="transition-overlay">
+        <div class="bike-graphic-moving">
+            <div class="chassis">
+                <div class="seat"></div>
+                <div class="connect"></div>
+            </div>
+            <div class="wheel front-wheel"></div>
+            <div class="wheel back-wheel"></div>
+        </div>
+        <p style="color: white; font-size: 1.5em; position: absolute; bottom: 10%;">Initiating Real-Time Telemetry...</p>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>

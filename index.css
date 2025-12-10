@@ -1,0 +1,309 @@
+/* GLOBAL & FONTS */
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* TASKBAR: Dark Mode Style */
+.taskbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background-color: #212121;
+    /* Black */
+    color: white;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+}
+
+.logo {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.8em;
+    font-weight: 800;
+    color: #FF4500;
+    /* Ninja Orange */
+}
+
+.nav-links a {
+    color: #ccc;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: #FF4500;
+}
+
+.primary-btn {
+    padding: 10px 25px;
+    background-color: #FF4500;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background-color 0.3s, transform 0.1s;
+    box-shadow: 0 4px 6px rgba(255, 69, 0, 0.3);
+}
+
+.primary-btn:hover {
+    background-color: #E64100;
+    transform: translateY(-2px);
+}
+
+/* HERO SECTION */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 100px 5%;
+    background: #ffffff;
+    flex-wrap: wrap-reverse;
+}
+
+.hero h1 {
+    font-size: 3.2em;
+    color: #212121;
+}
+
+/* H2R BIKE ANIMATION STYLES (Stationary) */
+.bike-animation-container {
+    width: 45%;
+    min-width: 300px;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.bike-graphic {
+    position: absolute;
+    bottom: 50px;
+    width: 70%;
+}
+
+.chassis {
+    width: 100%;
+    height: 25px;
+    background: #212121;
+    /* Black H2R Frame */
+    border-radius: 12px;
+    position: relative;
+    animation: moveBike 3s infinite ease-in-out;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.seat {
+    width: 35%;
+    height: 15px;
+    background: #FF4500;
+    /* Orange Seat */
+    position: absolute;
+    top: -10px;
+    right: 15%;
+    border-radius: 5px 5px 0 0;
+}
+
+.wheel {
+    width: 65px;
+    height: 65px;
+    border: 6px solid #FF4500;
+    /* Orange Rims */
+    border-radius: 50%;
+    background: black;
+    position: absolute;
+    bottom: -55px;
+    animation: spin 0.4s linear infinite;
+}
+
+.front-wheel {
+    left: 5%;
+}
+
+.back-wheel {
+    right: 5%;
+}
+
+.connect {
+    height: 50px;
+    width: 8px;
+    background: #444;
+    position: absolute;
+    top: -30px;
+    left: 15%;
+    transform: rotate(30deg);
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes moveBike {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.road {
+    width: 100%;
+    height: 60px;
+    background-color: #6c757d;
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
+}
+
+/* TRANSITION ANIMATION OVERLAY (Riding to Dashboard) */
+.transition-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #212121;
+    z-index: 5000;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+}
+
+.transition-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.bike-graphic-moving {
+    position: absolute;
+    width: 180px;
+    height: 120px;
+    animation: rideAcross 2.5s forwards;
+    left: -20%;
+}
+
+.bike-graphic-moving .chassis {
+    background: #FF4500;
+    /* Orange H2R in motion */
+    animation: none;
+}
+
+@keyframes rideAcross {
+    0% {
+        transform: translateX(0);
+        left: -20%;
+    }
+
+    100% {
+        transform: translateX(120vw);
+        left: 0;
+    }
+}
+
+/* --- NEW MODAL STYLES --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    background-color: #212121;
+    margin: 8% auto;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 400px;
+    color: white;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    position: relative;
+}
+
+.close-btn {
+    color: #aaa;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 36px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #FF4500;
+}
+
+.tab-container {
+    display: flex;
+    margin-bottom: 25px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px 0;
+    border: none;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    transition: background-color 0.3s;
+}
+
+.tab-btn.active {
+    background-color: #FF4500;
+    color: white;
+}
+
+.form-input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 15px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    box-sizing: border-box;
+    /* Important */
+    background: #333;
+    color: white;
+    font-size: 1em;
+}
+
+#formMessage {
+    color: #DC3545;
+    /* Red error */
+    font-weight: 600;
+    margin-bottom: 15px;
+    min-height: 1.2em;
+}
+
+#formMessage.success {
+    color: #28A745;
+    /* Green success */
+}
