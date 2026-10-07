@@ -2,7 +2,7 @@
 
 # 🏍️ Intelligent Telematic-Based Vehicle Monitoring System
 
-TeleMetrix is a high-performance, real-time vehicle monitoring platform built for high-performance vehicles like the **Kawasaki H2R**. It uses an ESP32 microcontroller with an MPU6050 sensor to stream telemetry data (speed, acceleration, angular velocity, GPS location) to a web-based dashboard via WebSockets. The platform provides real-time driver scoring, accident risk assessment, and historical drive analysis, all presented with an aggressive, professional, government-data-inspired black and orange aesthetic.
+TeleMetrix is a high-performance, real-time vehicle monitoring platform built for high-performance vehicles. It uses an ESP32 microcontroller with an MPU6050 sensor to stream telemetry data (speed, acceleration, angular velocity, GPS location) to a web-based dashboard via WebSockets. The platform provides real-time driver scoring, accident risk assessment, and historical drive analysis, all presented with an aggressive, professional, government-data-inspired black and orange aesthetic.
 
 ## ✨ Features
 
